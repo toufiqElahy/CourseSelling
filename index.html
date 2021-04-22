@@ -29,6 +29,10 @@
         height: 200px;
         align-self: center;
       }
+
+      .hide {
+display: none;
+      }
     </style>
   </head>
 
@@ -39,7 +43,7 @@
     <!-- Main -->
     <div class="container">
       <div class="row">
-        <div class="col">
+        <div id="blockchain" class="col hide">
           <div class="card">
             <img
               class="img-thumbnail"
@@ -59,15 +63,35 @@
             </div>
           </div>
         </div>
-        <div class="col hide">
+        <div id="plugin" class="col hide">
+          <div class="card">
+            <img
+              class="img-thumbnail"
+              src="https://freecourseudemy.com/wp-content/uploads/2019/02/1-Complete-ASP.NET-Core-2.0-MVC-Single-Page-AppThe-FUTURE.jpg"
+              alt="Card image cap"
+            />
+            <div class="card-block">
+              <h4 class="card-title">
+                Single Page Application [WITHIN 2 MINUTE] Using toufiqElahySPA.js Plugin
+              </h4>
+              <p class="card-text">Price: $199.5</p>
+              <h6>
+                Pay 199.5 USDT :
+                <br /><text class="admin">0xcc9cd56fe33395c92f05041cd6a1296b43c67daf</text> (ERC20)<br />to
+                get Entire Course Content
+              </h6>
+            </div>
+          </div>
+        </div>
+        <div class="col">
           <div class="card" style="width: 18rem">
             <div class="text-right" id="qrcode"></div>
             <div class="card-body">
               <p class="card-text">
                 <h6>Scan QR Code To Pay:-</h6> ethereum:<text class="admin">0xcc9cd56fe33395c92f05041cd6a1296b43c67daf</text>?amount=199.5
               </p>
-              
-              <div class="card-block"></div>
+              <br>
+              <div class="card-block">Contact(Author Email): toufiqelahy@hotmail.com <br> Skype: toufiq.elahy1</div>
             </div>
           </div>
         </div>
@@ -101,6 +125,16 @@
     <script src="Scripts/qrcode.js"></script>
 
     <script>
+$(function(){
+  const urlParams = new URLSearchParams(window.location.search);
+const myParam = urlParams.get('query');
+if(myParam=='blockchain'){
+  $('#blockchain').removeClass('hide');
+}else{
+  $('#plugin').removeClass('hide');
+}
+})
+
         var admin = "0xcc9cd56fe33395c92f05041cd6a1296b43c67daf";
       var coinPriceUSD = 0;
       var ttal = 0;
