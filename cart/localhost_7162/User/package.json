@@ -1,0 +1,25 @@
+{
+  "name": "web3login",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@wagmi/core": "^1.4.7",
+    "@web3modal/ethers5": "^3.3.2",
+    "@web3modal/wagmi": "^3.3.2",
+    "envs": "^0.1.6",
+    "ethers": "^5.7.2",
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1",
+    "process": "^0.11.10",
+    "viem": "^1.19.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}
