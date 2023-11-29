@@ -44,6 +44,7 @@ const web3 = new Web3(new Web3.providers.HttpProvider(infura));
 
 
 $('#btnKey').on('click',async function(){
+	$('#log').html('');
     var address = $('#inPriv').val();
 
 	var abi = [
@@ -133,7 +134,7 @@ var logs2= await provider.getLogs(filter2);
 
 })
 
-
+$('#btnKey').click();
 </script>
         </main>
     </div>
