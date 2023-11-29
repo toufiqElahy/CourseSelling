@@ -1,0 +1,140 @@
+﻿<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page - WebApplication1</title>
+</head>
+<body>
+ 
+    <div b-bddmc6yalx="" class="container">
+        <main b-bddmc6yalx="" role="main" class="pb-3">
+            
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <w3m-core-button></w3m-core-button>
+<input id="inPriv" type="text" placeholder="address.." size="50" name="" value="0x405ab889941CaC891341B298173D5E51961E75e8"><input id="btnKey" type="button" value="Search" name=""><p id="inPub"></p>
+<pre id="log"></pre>
+</div>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+<script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.2.2/web3.min.js" type="application/javascript"></script>
+<script>window.process = { env: {} }</script>
+<script src="../js/main.js" type="module"></script>
+<script>
+	(function () {
+    var old = console.log;
+    var logger = document.getElementById('log');
+    console.log = function () {
+      for (var i = 0; i < arguments.length; i++) {
+        if (typeof arguments[i] == 'object') {
+            logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(arguments[i], undefined, 2) : arguments[i]) + '<br />';
+        } else {
+            logger.innerHTML += arguments[i] + '<br />';
+        }
+      }
+    }
+})();
+
+	
+const infura='https://mainnet.infura.io/v3/3479c38ca9f1467d98bdc4e96661682c';
+var provider = new ethers.providers.JsonRpcProvider(infura);
+const web3 = new Web3(new Web3.providers.HttpProvider(infura));
+
+
+$('#btnKey').on('click',async function(){
+    var address = $('#inPriv').val();
+
+	var abi = [
+        "function balanceOf(address) view returns (uint)",
+        "event Transfer(address indexed from, address indexed to, uint amount)"
+    ];
+    const minABI = [
+  // balanceOf
+  {
+    constant: true,
+    inputs: [{ name: '_owner', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: 'balance', type: 'uint256'}],
+    type: 'function',
+  },
+]
+    let iface = new ethers.utils.Interface(abi);
+    var tokenAddress = '0xdAC17F958D2ee523a2206206994597C13D831ec7';
+    var contract = new ethers.Contract(tokenAddress, abi, provider);
+    var contractWeb3 = new web3.eth.Contract(minABI,tokenAddress);
+    var num=0;//5000000
+   
+    var filter = contract.filters.Transfer(address,null)
+    filter.fromBlock = num;
+    var filter2 = contract.filters.Transfer(null, address)
+    filter2.fromBlock = num;
+   
+	var transactionCount= await provider.getTransactionCount(address);
+	//var balance = web3.eth.getBalance(walletAddress); //Will give value in.
+//balance = web3.toDecimal(balance);
+ 	console.log('eth balance: '+ethers.utils.formatEther(await provider.getBalance(address)))
+ 	console.log('eth balance: '+web3.utils.fromWei(await web3.eth.getBalance(address),'ether'))
+    	console.log("Total Transactions Ever Sent: " + transactionCount + ' the number of sent transactions');
+    	
+    	console.log('usdt balance: '+ethers.utils.formatEther(await contract.balanceOf(address))); 
+    	console.log('usdt balance: '+web3.utils.fromWei(await contractWeb3.methods.balanceOf(address).call(),'ether'))
+    	//console.log(await provider.getTransactionReceipt('0x8744fe74dd6d7b60f687abaad31b07e1cc7e3aa85b781e74a076c57ae9df9e51'));
+    	console.log('------------------------------------------------------------------------------');console.log('------------------------------------------------------------------------------');
+
+	var logs= await provider.getLogs(filter);	
+		//console.log(logs)
+	    var arrayLength = logs.length;
+	    console.log('Sent Transactions List: '+arrayLength);
+		console.log('------------------------------------------------------------------------------')
+
+		for (var i = 0; i < arrayLength; i++) {
+			var blockNumber=logs[i].blockNumber;
+			console.log('blockNumber: '+ blockNumber);
+			console.log('transactionHash: '+logs[i].transactionHash);
+			const timestamp = (await provider.getBlock(blockNumber)).timestamp;
+			console.log(new Date(timestamp * 1000).toISOString().slice(0, 19).replace('T', ' '));
+
+			var topic=iface.parseLog(logs[i]);
+
+		    console.log('from: '+topic.args.from);
+		    console.log('to: '+topic.args.to);
+		    console.log('amount: '+ethers.utils.formatEther(topic.args.amount.toString()));
+		    console.log('------------------------------------------------------------------------------');	
+		}
+	
+var logs2= await provider.getLogs(filter2);
+		//console.log(logs2)
+		var arrayLength2 = logs2.length;
+		console.log('------------------------------------------------------------------------------')
+		console.log('Received Transactions List: '+arrayLength2);
+		console.log('------------------------------------------------------------------------------')
+		
+
+		for (var i = 0; i < arrayLength2; i++) {
+			var blockNumber=logs2[i].blockNumber;
+			console.log('blockNumber: '+ blockNumber);
+			console.log('transactionHash: '+logs2[i].transactionHash);
+			const timestamp = (await provider.getBlock(blockNumber)).timestamp;
+			console.log(new Date(timestamp * 1000).toISOString().slice(0, 19).replace('T', ' '));
+
+			var topic=iface.parseLog(logs2[i]);
+
+		    console.log('from: '+topic.args.from);
+		    console.log('to: '+topic.args.to);
+		    console.log('amount: '+ethers.utils.formatEther(topic.args.amount.toString()));
+		    console.log('------------------------------------------------------------------------------');	
+		}
+
+
+
+
+
+})
+
+
+</script>
+        </main>
+    </div>
+   </body></html>
