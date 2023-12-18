@@ -20,6 +20,11 @@ app.get('/test', (req, res) => {        //get requests to the root ("/") will ro
                                                         //the .sendFile method needs the absolute path to the file, see: https://expressjs.com/en/4x/api.html#res.sendFile 
 });
 
+app.get('/faucet', (req, res) => {        //get requests to the root ("/") will route here
+    res.sendFile('faucet.html', {root: __dirname});      //server responds by sending the index.html file to the client's browser
+                                                        //the .sendFile method needs the absolute path to the file, see: https://expressjs.com/en/4x/api.html#res.sendFile 
+});
+
 app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}
     console.log(`Now listening on port ${port}`); 
     //console.log(process.env);
