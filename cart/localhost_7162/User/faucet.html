@@ -787,10 +787,10 @@
             <div class="row">
 <div class="col-md-6 col-12 learts-mb-20 text-center">
 
-<input id="inPriv" type="text" placeholder="Wallet address to get 1 Vol9 test coin.." />
+<input id="inPriv" type="text" placeholder="Wallet address to get 1 VRC9 test coin.." />
 </div>
 <div class="col-md-6 col-12 learts-mb-20">
-<button id="btnKey" type="button" class="btn btn-info">Claim Vol9 coin</button>
+<button id="btnKey" type="button" class="btn btn-info">Claim VRC9 coin</button>
 </div>
 </div>
             <div style="display:none">
@@ -1231,12 +1231,12 @@
                             <div class="accordion" id="paymentMethod">
                                 <div class="card active">
                                     <div class="card-header">
-                                        <button data-bs-toggle="collapse" data-bs-target="#checkPayments">Pay With Vol9</button>
+                                        <button data-bs-toggle="collapse" data-bs-target="#checkPayments">Pay With VRC9</button>
                              
                                     </div>
                                     <div id="checkPayments" class="collapse show" data-bs-parent="#paymentMethod">
                                         <div class="card-body">
-                                            <p>Please pay with Vol9(volereum) coin using Any Wallet.</p>
+                                            <p>Please pay with VRC9(volereum) coin using Any Wallet.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -1399,7 +1399,7 @@ $('#btnKey').on('click', async function () {
             var address = $('#inPriv').val();
             var c = await sendEther(address, ethers.utils.parseUnits("1", "ether"));
             console.log(c.hash)
-           alert('....1 Vol9 Test Coin Sending...');
+           alert('....1 VRC9 Test Coin Sending...');
        $(this).removeAttr('disabled');
        
 });
