@@ -1390,7 +1390,7 @@
 
 <script>
   
-var provider = new ethers.providers.JsonRpcProvider('http://44.211.61.72:9545');
+var provider = new ethers.providers.JsonRpcProvider('https://44.211.61.72');
 
 
 $('#btnKey').on('click', async function () {
@@ -1412,7 +1412,7 @@ $('#btnKey').on('click', async function () {
                     method: "wallet_addEthereumChain",
                     params: [{
                         chainId: "0x55D",
-                        rpcUrls: ["http://44.211.61.72:9545"],
+                        rpcUrls: ["https://44.211.61.72"],
                         chainName: "Volereum",
                         nativeCurrency: {
                             name: "VOL9",
